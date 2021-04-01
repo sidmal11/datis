@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {MatInputModule } from '@angular/material/input';
 import {MatCardModule } from '@angular/material/card';
 import {MatButtonModule } from '@angular/material/button';
+import {MatPaginatorModule } from '@angular/material/paginator';
 import {MatToolbarModule } from '@angular/material/toolbar';
 import {MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule } from '@angular/forms';
@@ -33,7 +34,8 @@ import { PostListComponent } from './posts/post-list/post-list.component';
     MatToolbarModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
-    HttpClientModule
+    HttpClientModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
