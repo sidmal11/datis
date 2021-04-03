@@ -11,12 +11,17 @@ router.post("", checkAuth, (req, res, next) => {
     content: req.body.content,
     creator: req.userData.userId,
   });
-  post.save().then((createdPost) => {
-    res.status(201).json({
-      message: "Post added successfully",
-      postId: createdPost._id,
-    });
-  });
+
+  console.log(req.body.title);
+  post
+    .save()
+    .then((createdPost) => {
+      res.status(201).json({
+        message: "Post added successfully",
+        postId: createdPost._id,
+      });
+    })
+    .catch((err) => console.log(err));
 });
 
 router.put("/:id", checkAuth, (req, res, next) => {
@@ -24,6 +29,7 @@ router.put("/:id", checkAuth, (req, res, next) => {
     _id: req.body.id,
     title: req.body.title,
     content: req.body.content,
+    creator: req.userData.userId,
   });
   Post.updateOne(
     { _id: req.params.id, creator: req.userData.userId },
