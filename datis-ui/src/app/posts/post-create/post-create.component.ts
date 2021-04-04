@@ -4,6 +4,8 @@ import { ActivatedRoute,ParamMap } from "@angular/router";
 
 import { PostsService } from "../posts.service";
 import { Post } from "../post.model";
+import { Subscription } from "rxjs";
+import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
   selector: "app-post-create",
@@ -17,11 +19,17 @@ export class PostCreateComponent implements OnInit {
   private mode = "create";
   isLoading = false;
   private postId: string;
+  private authStatusSub: Subscription;
 
 
-  constructor(public postsService: PostsService,public route: ActivatedRoute) {}
+  constructor(public postsService: PostsService,public route: ActivatedRoute,private authService: AuthService) {}
 
   ngOnInit() {
+    this.authStatusSub = this.authService
+    .getAuthStatusListener()
+    .subscribe(authStatus => {
+      this.isLoading = false;
+    });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("postId")) {
         this.mode = "edit";
