@@ -1,8 +1,11 @@
 const mongoose = require("mongoose");
 
 const postSchema = mongoose.Schema({
-  title: { type: String, required: true },
-  content: { type: String, required: true },
+  name: { type: String, required: true },
+  salary: { type: Number, required: true },
+  eid: { type: Number, unique: true },
+  deductions: { type: Number },
+  final: { type: Number },
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

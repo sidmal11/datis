@@ -5,28 +5,42 @@
       <input
         matInput
         type="text"
-        name="title"
-        [ngModel]="post?.title"
+        name="name"
+        [ngModel]="post?.name"
         required
         minlength="3"
-        placeholder="Post Title"
-        #title="ngModel">
-      <mat-error *ngIf="title.invalid">Please enter a post title.</mat-error>
+        placeholder="Enter name"
+        #name="ngModel">
+      <mat-error *ngIf="name.invalid">Please enter valid first Name.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <textarea
+      <input
         matInput
-        rows="4"
-        name="content"
-        [ngModel]="post?.content"
+        type = "number"
+        name="salary"
+        [ngModel]="post?.salary"
         required
-        placeholder="Post Content"
-        #content="ngModel"></textarea>
-      <mat-error *ngIf="content.invalid">Please enter a post title.</mat-error>
+        placeholder="Salary"
+        #salary="ngModel">
+      <mat-error *ngIf="salary.invalid">Please enter valid salary.</mat-error>
     </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        type = "number"
+        name="eid"
+        [ngModel]="post?.eid"
+        required
+        placeholder="Employee id"
+        #eid="ngModel">
+      <mat-error *ngIf="eid.invalid">Please enter valid salary.</mat-error>
+      <mat-error *ngIf="eid.invalid">Please enter valid salary.</mat-error>
+    </mat-form-field>
+
     <button
       mat-raised-button
       color="accent"
-      type="submit">Save Post</button>
+      type="submit">Save Employee</button>
   </form>
 </mat-card>

@@ -15,7 +15,8 @@ import {MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatToolbarModule,
     MatExpansionModule,
-    MatProgressSpinnerModule,    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
     MatDialogModule
   ]
 })

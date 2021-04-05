@@ -1,6 +1,10 @@
 export interface Post {
   id: string;
-  title: string;
-  content: string;
+  name: string;
+  salary: number;
+  deductions: number;
+  final: number;
+  eid: number;
   creator: string;
+
 }

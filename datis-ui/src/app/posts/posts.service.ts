@@ -26,9 +26,12 @@ export class PostsService {
           return {
             posts: postData.posts.map(post => {
               return {
-                title: post.title,
-                content: post.content,
                 id: post._id,
+                name: post.name,
+                salary: post.salary,
+                eid: post.eid,
+                deductions: post.deductions,
+                final:post.final,
                 creator: post.creator
               };
             }),
@@ -50,19 +53,22 @@ export class PostsService {
   }
 
   getPost(id: string) {
-    // return this.http.get<{ _id: string; title: string; content: string }>(
-    //   "http://localhost:3000/api/posts/" + id
-    // );
+
     return this.http.get<{
       _id: string;
-      title: string;
-      content: string;
+      name: string;
+      salary: number;
+      eid: number;
+      deductions: number;
+      final: number;
       creator: string;
     }>(BACKEND_URL + id);
   }
 
-  addPost(title: string, content: string) {
-    const post: Post = { id: null, title: title, content: content,creator:null };
+  addPost(name: string, salary: number, eid: number) {
+
+
+    const post: Post = { id: null, name:name ,eid:eid, salary: salary,creator:null, deductions: null,final:null };
     this.http
       .post<{ message: string, postId: string }>(BACKEND_URL, post)
       .subscribe(responseData => {
@@ -71,22 +77,19 @@ export class PostsService {
       });
 
 
-    // const postData = new FormData();
-    // postData.append("title", title);
-    // postData.append("content", content);
-
-
   }
 
 
-  updatePost(id: string, title: string, content: string) {
-    // const post: Post = { id: id, title: title, content: content };
+  updatePost(id: string, name: string, salary: number, eid:number) {
 
     let postData: Post | FormData;
     postData = {
         id: id,
-        title: title,
-        content: content,
+        name: name,
+        salary: salary,
+        eid:eid,
+        deductions:null,
+        final:null,
         creator: null
       };
     this.http

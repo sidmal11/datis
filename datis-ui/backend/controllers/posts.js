@@ -1,13 +1,19 @@
 const Post = require("../models/post");
+const foo = require("./tax_calc");
 
 exports.createPost = (req, res, next) => {
+  const final = Math.round(foo(req.body.salary));
+  const deductions = req.body.salary - final;
+
   const post = new Post({
-    title: req.body.title,
-    content: req.body.content,
+    name: req.body.name,
+    salary: req.body.salary,
+    deductions: deductions,
+    eid: req.body.eid,
+    final: final,
     creator: req.userData.userId,
   });
 
-  console.log(req.body.title);
   post
     .save()
     .then((createdPost) => {
@@ -22,10 +28,16 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
+  const final = Math.round(foo(req.body.salary));
+  const deductions = req.body.salary - final;
+
   const post = new Post({
     _id: req.body.id,
-    title: req.body.title,
-    content: req.body.content,
+    name: req.body.name,
+    salary: req.body.salary,
+    eid: req.body.eid,
+    deductions: deductions,
+    final: final,
     creator: req.userData.userId,
   });
   Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)

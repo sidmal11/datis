@@ -13,9 +13,11 @@ import { AuthService } from "src/app/auth/auth.service";
   styleUrls: ["./post-create.component.css"]
 })
 export class PostCreateComponent implements OnInit {
-  enteredTitle = "";
-  enteredContent = "";
+  enteredName = "";
+  enteredSalary = "";
+  enteredEid = "";
   post: Post;
+
   private mode = "create";
   isLoading = false;
   private postId: string;
@@ -37,7 +39,15 @@ export class PostCreateComponent implements OnInit {
         this.isLoading = true;
         this.postsService.getPost(this.postId).subscribe(postData => {
           this.isLoading = false;
-          this.post = {id: postData._id, title: postData.title, content: postData.content, creator: postData.creator};
+          this.post = {
+            id: postData._id,
+            name: postData.name,
+            salary: postData.salary,
+            eid : postData.eid,
+            deductions:postData.deductions,
+            final: postData.final,
+            creator: postData.creator,
+           };
         });
       } else {
         this.mode = "create";
@@ -53,14 +63,16 @@ export class PostCreateComponent implements OnInit {
     }
     this.isLoading = true;
     if (this.mode === "create") {
-      this.postsService.addPost(form.value.title, form.value.content);
+      this.postsService.addPost(form.value.name, form.value.salary,form.value.eid);
     } else {
       this.postsService.updatePost(
         this.postId,
-        form.value.title,
-        form.value.content
+        form.value.name,
+        form.value.salary,
+        form.value.eid,
       );
     }
+
     form.resetForm();
   }
 }
