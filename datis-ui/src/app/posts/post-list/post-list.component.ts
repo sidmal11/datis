@@ -14,6 +14,9 @@ import { PostsService } from "../posts.service";
 export class PostListComponent implements OnInit, OnDestroy {
 
   posts: Post[] = [];
+  initialPosts: Post[] = [];
+  filteredPosts: Post[] = [];
+  firstname:any;
   private postsSub: Subscription;
   private authStatusSub: Subscription;
   isLoading = false;
@@ -35,6 +38,9 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.isLoading =false;
         this.totalPosts = postsData.postCount;
         this.posts = postsData.posts;
+        this.initialPosts = postsData.posts;
+        this.filteredPosts = this.initialPosts ;
+
       });
       this.userIsAuthenticated = this.authService.getIsAuth();
       this.authStatusSub = this.authService
@@ -66,4 +72,18 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.authStatusSub.unsubscribe();
 
   }
+
+  Search(){
+    if (this.firstname==""){
+      this.posts = this.initialPosts;
+    }else{
+      this.posts = this.posts.filter( res=>{
+        return res.name.toLocaleLowerCase().match(this.firstname.toLocaleLowerCase())
+      })
+
+
+    }
+  }
+
+
 }

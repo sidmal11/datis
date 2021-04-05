@@ -14,3 +14,11 @@ mat-paginator {
 .info-text {
   text-align: center;
 }
+.navbar input[type=search] {
+  width: 100%;
+  padding: 6px;
+  border: none;
+  margin-top: 8px ;
+  margin-bottom: 16px ;
+  font-size: 17px;
+}
