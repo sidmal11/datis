@@ -13,7 +13,9 @@ const connectConfig = {
 
 mongoose
   .connect(
-    "mongodb+srv://siddharth:PJQVu6P23NKnwhe1@cluster0.wsd5h.mongodb.net/datis?w=majority",
+    "mongodb+srv://siddharth:" +
+      process.env.MONGO_ATLAS_PW +
+      "@cluster0.wsd5h.mongodb.net/datis?w=majority",
     connectConfig
   )
   .then(() => {
