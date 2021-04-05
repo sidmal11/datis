@@ -1,0 +1,18 @@
+<h3>Angular Material Select with Search</h3>
+<form [formGroup]="postForm" (ngSubmit)="onFormSubmit()" class="post-form">
+  <mat-form-field class="select-book">
+    <input type="text" placeholder="Select a book" matInput formControlName="book" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let book of $filteredBooks | async" [value]="book">
+        {{book.name}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="book.hasError('required')">
+      Book required.
+    </mat-error>
+  </mat-form-field>
+  <br/>
+  <br/>
+  <button mat-raised-button>Submit</button>
+  <button mat-raised-button type="button" (click)="resetForm()">Reset</button>
+</form>
