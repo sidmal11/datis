@@ -5,13 +5,17 @@ import { ActivatedRoute,ParamMap } from "@angular/router";
 import { PostsService } from "../posts.service";
 import { Post } from "../post.model";
 import { Subscription } from "rxjs";
+import { MatDialog } from "@angular/material/dialog";
 import { AuthService } from "src/app/auth/auth.service";
+import { Injectable } from "@angular/core";
+import { ErrorComponent } from "src/app/error/error.component";
 
 @Component({
   selector: "app-post-create",
   templateUrl: "./post-create.component.html",
   styleUrls: ["./post-create.component.css"]
 })
+@Injectable()
 export class PostCreateComponent implements OnInit {
   enteredName = "";
   enteredSalary = "";
@@ -24,7 +28,7 @@ export class PostCreateComponent implements OnInit {
   private authStatusSub: Subscription;
 
 
-  constructor(public postsService: PostsService,public route: ActivatedRoute,private authService: AuthService) {}
+  constructor(public postsService: PostsService,public route: ActivatedRoute,private authService: AuthService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.authStatusSub = this.authService
@@ -58,21 +62,25 @@ export class PostCreateComponent implements OnInit {
 
 
   onSavePost(form: NgForm) {
+    let msg ="";
     if (form.invalid) {
       return;
     }
     this.isLoading = true;
     if (this.mode === "create") {
       this.postsService.addPost(form.value.name, form.value.salary,form.value.eid);
+      msg = ` added `;
     } else {
+
       this.postsService.updatePost(
         this.postId,
         form.value.name,
         form.value.salary,
         form.value.eid,
       );
+      msg = ` updated ` ;
     }
-
+    this.dialog.open(ErrorComponent, {data: {message: `Information about ${form.value.name} updated has been ${msg}` }});
     form.resetForm();
   }
 }
