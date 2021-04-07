@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const path = require("path");
+
 const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
 
@@ -24,12 +24,6 @@ mongoose
   .catch(() => {
     console.log("Connection failed! ");
   });
-
-app.use("/", express.static(path.join(__dirname, "../dist/datis-ui")));
-
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "../dist/datis-ui/index.html"));
-});
 
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
